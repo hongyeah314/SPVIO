@@ -1,8 +1,10 @@
+//相机模型相关
+
 #include <yaml-cpp/yaml.h>
 
 #include "camera.h"
 #include "utils.h"
-
+//相机模型的构造函数
 Camera::Camera(){
 }
 
