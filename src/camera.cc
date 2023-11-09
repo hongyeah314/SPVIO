@@ -7,7 +7,10 @@
 //相机模型的构造函数
 Camera::Camera(){
 }
-//相机进行矫正
+/**
+ * @brief Camera类的构造函数，用于初始化相机参数
+ * @param camera_file 相机配置文件路径
+ */
 
 Camera::Camera(const std::string& camera_file){
   cv::FileStorage camera_configs(camera_file, cv::FileStorage::READ);
@@ -65,6 +68,10 @@ Camera::Camera(const std::string& camera_file){
   }
 }
 
+// 重载赋值运算符函数，用于将camera对象的值赋给当前对象
+// 参数camera: 一个Camera对象，用于赋值操作
+// 返回值：当前对象的引用
+
 Camera& Camera::operator=(const Camera& camera){
   _image_height = camera._image_height;
   _image_width = camera._image_width;
@@ -87,6 +94,15 @@ Camera& Camera::operator=(const Camera& camera){
   return *this;
 }
 
+
+/**
+ * 对左右图像进行重映射
+ * 
+ * @param image_left 左图像
+ * @param image_right 右图像
+ * @param image_left_rect 重映射后的左图像
+ * @param image_right_rect 重映射后的右图像
+ */
 void Camera::UndistortImage(
     cv::Mat& image_left, cv::Mat& image_right, cv::Mat& image_left_rect, cv::Mat& image_right_rect){
   cv::remap(image_left, image_left_rect, _mapl1, _mapl2, cv::INTER_LINEAR);
