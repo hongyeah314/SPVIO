@@ -7,6 +7,7 @@
 //相机模型的构造函数
 Camera::Camera(){
 }
+//相机进行矫正
 
 Camera::Camera(const std::string& camera_file){
   cv::FileStorage camera_configs(camera_file, cv::FileStorage::READ);
