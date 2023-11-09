@@ -84,6 +84,26 @@ void Frame::AddFeatures(Eigen::Matrix<double, 259, Eigen::Dynamic>& features_lef
   AddRightFeatures(features_right, lines_right, stereo_matches);
 }
 
+
+/**
+ * @brief 填充关键点和将特征分配到网格中
+ * @param features_left 特征矩阵
+ * @param lines_left 特征线向量
+ */
+
+/*
+这段代码的逻辑如下：
+1. 将传入的特征矩阵 `features_left` 赋值给私有变量 `_features`。
+2. 遍历特征矩阵，获取每个特征的分数 `score`、位置坐标 `x` 和 `y`，并将其添加到 `_keypoints` 中。
+3. 根据特征的位置坐标，在特征网格中找到对应的网格坐标，并将特征索引添加到 `_feature_grid` 对应的网格中。
+4. 初始化 `_u_right` 和 `_depth` 两个私有变量，分别为 `-1` 的大小为 `features_left_size` 的向量。
+5. 初始化 `track_ids` 和 `mappoints` 两个向量，分别为 `-1` 和 `nullptr` 的大小为 `features_left_size` 的向量，并将其赋值给 `_track_ids` 和 `_mappoints` 私有变量。
+6. 将传入的 `lines_left` 赋值给 `_lines` 私有变量。
+7. 初始化 `points_on_line_left` 为一个空的 `vector`，并调用 `AssignPointsToLines` 函数将特征点分配到线上，并将结果赋值给 `points_on_line_left`。
+8. 初始化 `line_track_ids` 和 `maplines` 两个向量，分别为 `-1` 和 `nullptr` 的大小为 `line_num` 的向量，并将其赋值给 `_line_track_ids` 和 `_maplines` 私有变量。
+9. 将 `points_on_line_left` 赋值给 `relation_left` 用于调试。
+10. 完成代码逻。
+*/
 void Frame::AddLeftFeatures(Eigen::Matrix<double, 259, Eigen::Dynamic>& features_left, 
     std::vector<Eigen::Vector4d>& lines_left){
   _features = features_left;
