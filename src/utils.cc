@@ -43,21 +43,22 @@ cv::Mat DrawFeatures(const cv::Mat& image, const std::vector<cv::KeyPoint>& keyp
   std::vector<int> radii(point_num, 2);
 
   // draw lines
-  for(size_t i = 0; i < lines.size(); i++){
-    if(line_track_ids[i] < 0) continue;
-    cv::Scalar color = GenerateColor(line_track_ids[i]);
-    Eigen::Vector4d line = lines[i];
-    cv::line(img_color, cv::Point2i((int)(line(0)+0.5), (int)(line(1)+0.5)), 
-        cv::Point2i((int)(line(2)+0.5), (int)(line(3)+0.5)), color, 2);
+  //TODO: draw lines zhanglei
+  // for(size_t i = 0; i < lines.size(); i++){
+  //   if(line_track_ids[i] < 0) continue;
+  //   cv::Scalar color = GenerateColor(line_track_ids[i]);
+  //   Eigen::Vector4d line = lines[i];
+  //   cv::line(img_color, cv::Point2i((int)(line(0)+0.5), (int)(line(1)+0.5)), 
+  //       cv::Point2i((int)(line(2)+0.5), (int)(line(3)+0.5)), color, 2);
 
-    cv::putText(img_color, std::to_string(line_track_ids[i]), cv::Point((int)((line(0)+line(2))/2), 
-        (int)((line(1)+line(3))/2)), cv::FONT_HERSHEY_DUPLEX, 1.0, color, 2);
+  //   cv::putText(img_color, std::to_string(line_track_ids[i]), cv::Point((int)((line(0)+line(2))/2), 
+  //       (int)((line(1)+line(3))/2)), cv::FONT_HERSHEY_DUPLEX, 1.0, color, 2);
 
-    for(auto& kv : points_on_lines[i]){
-      colors[kv.first] = color;
-      radii[kv.first] *= 2;
-    }
-  }
+  //   for(auto& kv : points_on_lines[i]){
+  //     colors[kv.first] = color;
+  //     radii[kv.first] *= 2;
+  //   }
+  // }
 
   // draw points
   for(size_t j = 0; j < point_num; j++){
