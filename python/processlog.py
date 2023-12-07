@@ -12,7 +12,7 @@ for log in lines:
     if match:
         parameter1 = int(match.group(1))
         parameter2 = float(match.group(2))
-        values.append(parameter2)
+        values.append(1/parameter2)
 
         # print(parameter1, parameter2)        
     
