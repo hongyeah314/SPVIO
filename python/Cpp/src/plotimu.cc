@@ -70,14 +70,18 @@ std::vector<biasdata> extractbiasData(const std::string& filename) {
 
             // size_t position = line.find(to_remove);
             // line.erase(position, to_remove.length());
-            std::cout<<line<<std::endl;
+            std::cout<<"IN :"<<line<<std::endl;
             std::istringstream iss(line);
+            std::cout<<"OUT :"<<iss.str()<<std::endl;
+
+
             std::string time,bais;
             biasdata entry;
             iss >> bais;
             iss >> time;
             iss >> entry.d_time;
             iss >> entry.x >> entry.y >> entry.z;
+            cout<<bais<<time<< entry.d_time<<entry.x << entry.y << entry.z << endl;
             data.push_back(entry);
         }
     }
@@ -209,7 +213,7 @@ void plotceresData(const std::vector<ceresdata>& data) {
         outfile << std::fixed << std::setprecision(10) <<entry.d_time <<" "<<entry.cost << std::endl;
     }
     outfile.close();
-    system("/Users/zhanglei/miniconda3/bin/python /Users/zhanglei/code/SPVIO/python/plot.py");
+    system("/Users/zhanglei/miniconda3/bin/python /Users/zhanglei/code/SPVIO/python/plotceres.py");
 }
 
 int main(int argc, char** argv) {
@@ -227,13 +231,19 @@ int main(int argc, char** argv) {
     auto yprdata = extractyprData(filename);
     cout<<"data size: "<<biasdata.size()<<endl;
 
-    auto ceresdata = extractceresData(filename);
+     auto ceresdata = extractceresData(filename);
 
     // plotIMUData(data);
-    // plotbiasData(biasdata);
-    //plotyprData(yprdata);
+    //  plotbiasData(biasdata);
+    // plotyprData(yprdata);
 
-    cout<<ceresdata.size()<<endl;
+    // cout<<ceresdata.size()<<endl;
+     ceresdata.pop_back();
+    for(int num = 0; num < ceresdata.size(); num++){
+        ceresdata[num].d_time = biasdata[num].d_time;
+    }
+
+    plotceresData(ceresdata);
 
     return 0;
 }
